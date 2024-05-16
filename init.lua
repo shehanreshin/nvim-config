@@ -32,9 +32,6 @@ local configs = require("nvim-treesitter.configs")
           indent = { enable = true }  
         })
 
-require("catppuccin").setup()
-vim.cmd.colorscheme "catppuccin"
-
 local builtin = require("telescope.builtin")
 vim.keymap.set('n', '<C-p>', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
