@@ -23,6 +23,3 @@ vim.opt.rtp:prepend(lazypath)
 local opts = {}
 
 require("lazy").setup("plugins")
-
-vim.keymap.set('n', '<C-n>', ':Neotree filesystem reveal left<CR>', {})
-vim.keymap.set('n', '<C-g>', ':Neotree git_status<CR>', {})
