@@ -15,12 +15,21 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 }	
+	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+	{"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"}
 }
 
 local opts = {}
 
 require("lazy").setup(plugins, opts)
+
+local configs = require("nvim-treesitter.configs")
+
+      configs.setup({
+          ensure_installed = { "lua", "javascript", "html" },
+          highlight = { enable = true },
+          indent = { enable = true }  
+        })
 
 require("catppuccin").setup()
 vim.cmd.colorscheme "catppuccin"
