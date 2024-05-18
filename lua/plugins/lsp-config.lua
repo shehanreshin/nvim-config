@@ -4,12 +4,36 @@ return {
 		config = function()
 			require("mason").setup()
 		end,
+		dependencies = {
+			{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
+		},
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
-			require("mason-lspconfig").setup({
+			local lspconfig = require("lspconfig")
+			local mason = require("mason-lspconfig")
+
+			mason.setup({
 				ensure_installed = { "lua_ls", "tsserver", "jdtls", "html", "tailwindcss" },
+			})
+			mason.setup_handlers({
+				function(server_name)
+					if server_name ~= "jdtls" then
+						lspconfig[server_name].setup({
+							on_attach = lsp_attach,
+							capabilities = lsp_capabilities,
+						})
+					end
+				end,
+			})
+
+			require("mason-tool-installer").setup({
+				-- Install these linters, formatters, debuggers automatically
+				ensure_installed = {
+					"java-debug-adapter",
+					"java-test",
+				},
 			})
 		end,
 	},
@@ -22,9 +46,6 @@ return {
 				capabilities = capabilities,
 			})
 			lspconfig.tsserver.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.jdtls.setup({
 				capabilities = capabilities,
 			})
 			lspconfig.html.setup({
