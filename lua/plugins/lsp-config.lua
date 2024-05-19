@@ -14,6 +14,10 @@ return {
 			local lspconfig = require("lspconfig")
 			local mason = require("mason-lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+			local lsp_zero = require("lsp-zero")
+			lsp_zero.extend_lspconfig()
+
 			mason.setup({
 				ensure_installed = { "lua_ls", "tsserver", "jdtls", "html", "tailwindcss", "cssls" },
 			})
@@ -35,20 +39,69 @@ return {
 			})
 		end,
 	},
+	{ "neovim/nvim-lspconfig" },
+	{ "hrsh7th/cmp-nvim-lsp" },
 	{
-		"neovim/nvim-lspconfig",
+		"L3MON4D3/LuaSnip",
+		dependencies = {
+			"saadparwaiz1/cmp_luasnip",
+			"rafamadriz/friendly-snippets",
+		},
+	},
+	{
+		"hrsh7th/nvim-cmp",
 		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			local lspconfig = require("lspconfig")
-			local servers = { "lua_ls", "tsserver", "html", "tailwindcss", "cssls" }
-			for _, lsp in ipairs(servers) do
-				lspconfig[lsp].setup({
-					capabilities = capabilities,
-				})
-			end
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
+			local cmp = require("cmp")
+			require("luasnip.loaders.from_vscode").lazy_load()
+
+			cmp.setup({
+				snippet = {
+					expand = function(args)
+						require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+					end,
+				},
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered(),
+				},
+				mapping = cmp.mapping.preset.insert({
+					["<C-b>"] = cmp.mapping.scroll_docs(-4),
+					["<C-f>"] = cmp.mapping.scroll_docs(4),
+					["<C-Space>"] = cmp.mapping.complete(),
+					["<C-e>"] = cmp.mapping.abort(),
+					["<CR>"] = cmp.mapping.confirm({ select = true }),
+					["<Tab>"] = cmp.mapping.confirm({ select = true }),
+				}),
+				sources = cmp.config.sources({
+					{ name = "nvim_lsp" },
+					{ name = "luasnip" }, -- For luasnip users.
+				}, {
+					{ name = "buffer" },
+				}),
+			})
+		end,
+	},
+	{
+		"VonHeikemen/lsp-zero.nvim",
+		branch = "v3.x",
+		config = function()
+			local lsp_zero = require("lsp-zero")
+			lsp_zero.extend_lspconfig()
+
+			lsp_zero.on_attach(function(client, bufnr)
+				-- see :help lsp-zero-keybindings
+				-- to learn the available actions
+				lsp_zero.default_keymaps({ buffer = bufnr })
+			end)
+
+			require("mason-lspconfig").setup({
+				ensure_installed = { "cssls", "html", "tailwindcss", "tsserver", "lua_ls" },
+				handlers = {
+					function(server_name)
+						require("lspconfig")[server_name].setup({})
+					end,
+				},
+			})
 		end,
 	},
 }
