@@ -21,3 +21,5 @@ vim.keymap.set("n", "<leader>sh", "<C-w>h")
 vim.keymap.set("n", "<leader>sl", "<C-w>l")
 vim.keymap.set("n", "<leader>s+", "<C-w>+")
 vim.keymap.set("n", "<leader>s-", "<C-w>-")
+
+vim.opt.mouse = ""

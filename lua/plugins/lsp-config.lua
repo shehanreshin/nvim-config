@@ -13,7 +13,7 @@ return {
 		config = function()
 			local lspconfig = require("lspconfig")
 			local mason = require("mason-lspconfig")
-
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			mason.setup({
 				ensure_installed = { "lua_ls", "tsserver", "jdtls", "html", "tailwindcss" },
 			})
@@ -21,15 +21,13 @@ return {
 				function(server_name)
 					if server_name ~= "jdtls" then
 						lspconfig[server_name].setup({
-							on_attach = lsp_attach,
-							capabilities = lsp_capabilities,
+							capabilities = capabilities,
 						})
 					end
 				end,
 			})
 
 			require("mason-tool-installer").setup({
-				-- Install these linters, formatters, debuggers automatically
 				ensure_installed = {
 					"java-debug-adapter",
 					"java-test",
