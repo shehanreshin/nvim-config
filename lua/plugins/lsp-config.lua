@@ -15,7 +15,7 @@ return {
 			local mason = require("mason-lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			mason.setup({
-				ensure_installed = { "lua_ls", "tsserver", "jdtls", "html", "tailwindcss" },
+				ensure_installed = { "lua_ls", "tsserver", "jdtls", "html", "tailwindcss", "cssls" },
 			})
 			mason.setup_handlers({
 				function(server_name)
@@ -40,18 +40,12 @@ return {
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local lspconfig = require("lspconfig")
-			lspconfig.lua_ls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.tsserver.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.html.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.tailwindcss.setup({
-				capabilities = capabilities,
-			})
+			local servers = { "lua_ls", "tsserver", "html", "tailwindcss", "cssls" }
+			for _, lsp in ipairs(servers) do
+				lspconfig[lsp].setup({
+					capabilities = capabilities,
+				})
+			end
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
 			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
