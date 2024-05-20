@@ -19,7 +19,22 @@ return {
 			lsp_zero.extend_lspconfig()
 
 			mason.setup({
-				ensure_installed = { "lua_ls", "tsserver", "jdtls", "html", "tailwindcss", "cssls" },
+				ensure_installed = {
+					"lua_ls",
+					"tsserver",
+					"jdtls",
+					"html",
+					"tailwindcss",
+					"cssls",
+					"marksman",
+					"prismals",
+					"sqlls",
+					"yamlls",
+					"bashls",
+					"dockerls",
+					"docker_compose_language_service",
+					"jsonls",
+				},
 			})
 			mason.setup_handlers({
 				function(server_name)
