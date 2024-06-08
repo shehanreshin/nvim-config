@@ -8,8 +8,10 @@ vim.cmd(":map <Right> <Nop>")
 vim.cmd(":map <Down> <Nop>")
 
 vim.keymap.set("n", "<C-s>", ":w<CR>", {})
+vim.keymap.set("n", "U", ":redo<CR>", {})
 vim.keymap.set("i", "<C-s>", "<C-o>:w<CR>", {})
 vim.keymap.set("i", "ii", "<ESC>")
+vim.keymap.set("i", "<C-u>", "<C-o>:u<CR>", {})
 
 vim.keymap.set("n", "<leader>sx", "<C-w>v")
 vim.keymap.set("n", "<leader>sy", "<C-w>s")
