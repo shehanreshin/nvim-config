@@ -87,14 +87,79 @@ local right_header = merge_blocks(old_art, title_art, 2)
 local right_header_width = max_width(split_lines(right_header))
 local quote = "If this eye cannot see a thing, then it does not exist"
 
+local palette = {
+  base = "#e0e0d4",
+  ink = "#0a0a0a",
+  shadow = "#282932",
+  green = "#2e8c6a",
+  deep_green = "#1a5d4d",
+}
+
+local function set_dashboard_highlights()
+  vim.api.nvim_set_hl(0, "SnacksDashboardNormal", {
+    fg = palette.base,
+    bg = palette.shadow,
+  })
+  vim.api.nvim_set_hl(0, "SnacksDashboardBorder", {
+    fg = palette.shadow,
+    bg = palette.shadow,
+  })
+  vim.api.nvim_set_hl(0, "SnacksDashboardHeader", {
+    fg = palette.green,
+    bg = palette.shadow,
+    bold = true,
+  })
+  vim.api.nvim_set_hl(0, "SnacksDashboardTitle", {
+    fg = palette.base,
+    bg = palette.shadow,
+    bold = true,
+  })
+  vim.api.nvim_set_hl(0, "SnacksDashboardIcon", {
+    fg = palette.green,
+    bg = palette.shadow,
+  })
+  vim.api.nvim_set_hl(0, "SnacksDashboardKey", {
+    fg = palette.green,
+    bg = palette.shadow,
+    bold = true,
+  })
+  vim.api.nvim_set_hl(0, "SnacksDashboardDesc", {
+    fg = palette.base,
+    bg = palette.shadow,
+  })
+  vim.api.nvim_set_hl(0, "SnacksDashboardFooter", {
+    fg = palette.deep_green,
+    bg = palette.shadow,
+  })
+  vim.api.nvim_set_hl(0, "SnacksDashboardFile", {
+    fg = palette.base,
+    bg = palette.shadow,
+  })
+  vim.api.nvim_set_hl(0, "SnacksDashboardDir", {
+    fg = palette.deep_green,
+    bg = palette.shadow,
+  })
+  vim.api.nvim_set_hl(0, "SnacksDashboardSpecial", {
+    fg = palette.green,
+    bg = palette.shadow,
+  })
+  vim.api.nvim_set_hl(0, "SnacksDashboardQuote", {
+    fg = palette.deep_green,
+    bg = palette.shadow,
+    italic = true,
+  })
+end
+
 return {
   {
     "folke/snacks.nvim",
     init = function()
-      local comment = vim.api.nvim_get_hl(0, { name = "Comment", link = false })
-      vim.api.nvim_set_hl(0, "SnacksDashboardQuote", {
-        fg = comment.fg,
-        italic = true,
+      set_dashboard_highlights()
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        group = vim.api.nvim_create_augroup("ulquiorra_dashboard", { clear = true }),
+        callback = function()
+          set_dashboard_highlights()
+        end,
       })
     end,
     opts = function(_, opts)
