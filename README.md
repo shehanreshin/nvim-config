@@ -8,7 +8,7 @@
 
 This is my personal Neovim setup built on top of [LazyVim](https://github.com/LazyVim/LazyVim), shaped around the way I actually like to work and the tools I use most. More than that, it is a passion project built around Ulquiorra Cifer, my favorite character from *Bleach* by Tite Kubo. I wanted the editor to feel cold, calm, and spectral without becoming tiring to look at, so I spent time refining the palette around darker surfaces, restrained accents, and clear visual separation for diagnostics, syntax groups, icons, and UI states. I also paid close attention to contrast balance and accent saturation so the theme stays comfortable during long coding sessions instead of looking good for only a few minutes.
 
-![Neovim Theme Preview](./docs/assets/theme-preview.png)
+<img width="1430" height="793" alt="Screenshot 2026-04-01 at 14 39 47" src="https://github.com/user-attachments/assets/15cd3c51-be30-44a5-bdca-cb13bd3fa85e" /> <br />
 
 This setup is centered around:
 
