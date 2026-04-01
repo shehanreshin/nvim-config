@@ -23,6 +23,7 @@ This setup is centered around:
 - [Before Cloning](#before-cloning)
 - [Clone And Start](#clone-and-start)
 - [Ghostty Configuration](#ghostty-configuration)
+- [Oh My Posh Configuration](#oh-my-posh-configuration)
 - [Verify The Setup](#verify-the-setup)
 
 ## Setup
@@ -36,7 +37,8 @@ Make sure these are in place before replacing your current Neovim setup:
 3. Install `node` and `npm`. They are required for Markdown preview support.
 4. Install Ghostty. This setup is intended to be used in Ghostty.
 5. Install a Nerd Font. This setup is intended to be used with `JetBrainsMono NFM Regular`.
-6. Back up your existing Neovim config if you already have one:
+6. Install [Oh My Posh](https://github.com/JanDeDobbeleer/oh-my-posh).
+7. Back up your existing Neovim config if you already have one:
 
 ```bash
 mv ~/.config/nvim ~/.config/nvim.bak
@@ -96,6 +98,32 @@ theme = Ulquiorra
 ```
 
 Restart Ghostty or reload its config after making the change.
+
+### Oh My Posh Configuration
+
+Then copy the theme file from [oh-my-posh/ZSHThemes.json](/Users/shehanreshin/.config/nvim/oh-my-posh/ZSHThemes.json) into your home directory. Create the file if it does not exist yet:
+
+```bash
+cp ~/.config/nvim/oh-my-posh/ZSHThemes.json ~/ZSHThemes.json
+```
+
+If your `~/.zshrc` already points Oh My Posh to `~/ZSHThemes.json`, reload Zsh to apply the changes:
+
+```bash
+source ~/.zshrc
+```
+
+If it does not, add this line to `~/.zshrc` first:
+
+```bash
+eval "$(oh-my-posh init zsh --config ~/ZSHThemes.json)"
+```
+
+Then reload Zsh:
+
+```bash
+source ~/.zshrc
+```
 
 ## Verify The Setup
 
