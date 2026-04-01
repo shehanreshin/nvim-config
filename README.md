@@ -61,7 +61,16 @@ nvim
 
 ### Ghostty Configuration
 
-Add the following settings to your Ghostty config file, usually `~/.config/ghostty/config`:
+If your Ghostty config directory does not exist yet, create it first. Then copy the theme file from [ghostty/themes/Ulquiorra](/Users/shehanreshin/.config/nvim/ghostty/themes/Ulquiorra) into your Ghostty themes directory:
+
+```bash
+mkdir -p ~/.config/ghostty/themes
+cp ~/.config/nvim/ghostty/themes/Ulquiorra ~/.config/ghostty/themes/Ulquiorra
+```
+
+You can then enable the theme in either of these ways.
+
+Option 1: edit your Ghostty config file, usually `~/.config/ghostty/config`, and add:
 
 ```ini
 font-family = "JetBrainsMono NFM Regular"
@@ -72,13 +81,21 @@ window-padding-x = 10
 window-padding-y = 10
 window-decoration = true
 window-padding-balance = true
-theme = Catppuccin Mocha
+theme = Ulquiorra
 macos-titlebar-style = transparent
 background-blur = 90
 background-opacity = 0.82
 maximize = true
 window-save-state = always
 ```
+
+Option 2: open Ghostty Settings and add the following line there:
+
+```ini
+theme = Ulquiorra
+```
+
+Restart Ghostty or reload its config after making the change.
 
 ## Verify The Setup
 
