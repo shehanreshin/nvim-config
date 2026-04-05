@@ -24,6 +24,7 @@ This setup is centered around:
 - [Clone And Start](#clone-and-start)
 - [Ghostty Configuration](#ghostty-configuration)
 - [Oh My Posh Configuration](#oh-my-posh-configuration)
+- [Usage](#usage)
 - [Verify The Setup](#verify-the-setup)
 
 ## Setup
@@ -125,6 +126,280 @@ Then reload Zsh:
 ```bash
 source ~/.zshrc
 ```
+
+## Usage
+
+This config uses `Space` as the leader key. So mappings like `<leader>ff` mean `Space`, then `f`, then `f`.
+
+This setup uses `Snacks` for both the picker and the file explorer, so the common shortcuts below are based on that rather than Telescope or Neo-tree.
+
+### Files And Search
+
+- `Space ff`: find files in the project root
+- `Space fF`: find files in the current working directory
+- `Space fc`: find a file inside the Neovim config
+- `Space fr`: open recent files
+- `Space /`: grep in the project root
+- `Space sg`: grep in the project root
+- `Space sb`: search inside the current buffer
+- `Space sB`: grep across all open buffers
+- `Space sw`: search for the word under cursor or the current visual selection
+- `Space ,`: switch buffers
+- `Space fe`: open the file explorer at the project root
+- `Space fE`: open the file explorer at the current working directory
+
+### File Explorer
+
+- `j` / `k`: move through files
+- `l`: open file or expand directory
+- `h`: collapse directory
+- `Enter`: confirm selection
+- `q`: close the picker or explorer
+
+### Code Navigation
+
+- `gd`: go to definition
+- `gr`: show references
+- `gI`: go to implementation
+- `gy`: go to type definition
+- `gD`: go to declaration
+- `K`: hover documentation
+- `gK`: signature help
+- `Ctrl-k` in insert mode: signature help while typing
+- `[[` / `]]`: jump between references of the symbol under cursor
+
+### Traversing Through Code Efficiently
+
+For normal movement, this config is built around `h`, `j`, `k`, and `l`, with the arrow keys disabled so navigation stays consistent.
+
+- `h` / `l`: move left or right by one character
+- `j` / `k`: move down or up
+- `w`: jump to the next word
+- `b`: jump back by one word
+- `e`: jump to the end of the current or next word
+- `0`: jump to the start of the line
+- `^`: jump to the first non-whitespace character on the line
+- `$`: jump to the end of the line
+- `gg`: jump to the top of the file
+- `G`: jump to the bottom of the file
+- `%`: jump between matching brackets or parentheses
+- `n` / `N`: move to the next or previous search result
+
+Examples:
+
+```text
+w       move forward one word
+3w      move forward three words
+b       move back one word
+e       move to the end of the word
+```
+
+```text
+0       start of line
+^       first non-space on the line
+$       end of line
+```
+
+```text
+gg      top of file
+G       bottom of file
+25G     jump to line 25
+```
+
+Search-based movement is usually the fastest way to move through large files.
+
+- `/text`: search forward for `text`
+- `?text`: search backward for `text`
+- `n`: go to the next match
+- `N`: go to the previous match
+- `Space ff`: find files quickly
+- `Space /` or `Space sg`: search across the project
+- `Space sb`: fuzzy-search lines in the current file
+- `Space sB`: search across all currently open files
+- `Space sw`: search for the word under cursor
+
+Examples:
+
+```text
+/UserService
+n
+n
+```
+
+That jumps to the first `UserService`, then the next two matches.
+
+Use LSP navigation when you want semantic jumps instead of text-based movement.
+
+- `gd`: jump to where something is defined
+- `gr`: list all references
+- `gI`: jump to implementation
+- `gy`: jump to type definition
+- `gD`: jump to declaration
+- `K`: inspect docs for the symbol under cursor
+
+Example:
+
+```text
+Put the cursor on a function name
+gd
+```
+
+That jumps straight to its definition even if it is in another file.
+
+When moving around multiple open windows and files:
+
+- `Ctrl-h` / `Ctrl-j` / `Ctrl-k` / `Ctrl-l`: move between splits
+- `Shift-h` / `Shift-l`: move between buffers
+- `Space bb`: jump back to the previous buffer
+- `Space fe`: open the explorer and move with `j` / `k`, open with `l`, close folders with `h`
+
+Example workflow:
+
+```text
+Space ff       find a file
+gd             jump to definition
+Ctrl-o         jump back
+gr             inspect references
+Shift-l        move to the next buffer
+```
+
+For selecting and editing efficiently:
+
+- `v`: start characterwise visual mode
+- `V`: start linewise visual mode
+- `y`: copy
+- `d`: delete
+- `x`: cut/delete the selected text or current character
+- `p`: paste after cursor
+- `P`: paste before cursor
+- `u`: undo
+- `U`: redo
+- `Alt-j` / `Alt-k`: move lines or selected blocks
+
+Examples:
+
+```text
+viw     select inner word
+yiw     copy inner word
+diw     delete inner word
+```
+
+```text
+Vjj     select this line and the next two lines
+>       indent selection
+<       outdent selection
+```
+
+Replace selected text with copied text:
+
+```text
+yiw     copy a word
+viw     select another word
+p       replace the selected word with what you copied
+```
+
+Cut selected text:
+
+```text
+viw     select inner word
+d       cut it
+```
+
+Delete selected text without leaving visual mode first:
+
+```text
+v...    make a visual selection
+d       delete it
+```
+
+Delete everything in the current file:
+
+```text
+ggVGd
+```
+
+That jumps to the top of the file, selects everything, and deletes it.
+
+Delete all lines in the current file with an Ex command:
+
+```text
+:%d
+```
+
+Replace all matches in the current file:
+
+```text
+:%s/old/new/g
+```
+
+Replace all matches with confirmation:
+
+```text
+:%s/old/new/gc
+```
+
+### Code Actions And Refactoring
+
+- `Space ca`: code actions
+- `Space cr`: rename symbol
+- `Space cR`: rename file
+- `Space cA`: source actions
+- `Space cf`: format current buffer or selection
+- `Space cd`: show line diagnostics
+- `[d` / `]d`: previous or next diagnostic
+- `[e` / `]e`: previous or next error
+- `[w` / `]w`: previous or next warning
+
+### Autocompletion
+
+- `Enter`: accept the current completion item
+- `Ctrl-y`: also accept the current completion item
+- `Ctrl-e`: dismiss the current suggestion without leaving insert mode
+- `Ctrl-Space`: show completion
+- `Ctrl-n` / `Ctrl-p`: move to next or previous suggestion
+
+### Windows, Splits, And Tabs
+
+- `Ctrl-h` / `Ctrl-j` / `Ctrl-k` / `Ctrl-l`: move between splits
+- `Space -`: horizontal split
+- `Space |`: vertical split
+- `Space wd`: close current split
+- `Ctrl-Up` / `Ctrl-Down`: resize split height
+- `Ctrl-Left` / `Ctrl-Right`: resize split width
+- `Space Tab Tab`: open a new tab
+- `Space Tab d`: close current tab
+- `Space Tab [` / `Space Tab ]`: previous or next tab
+
+### Buffers And Terminal
+
+- `Shift-h` / `Shift-l`: previous or next buffer
+- `Space bb`: switch to the previous buffer
+- `Space bd`: close current buffer
+- `Space bo`: close all other buffers
+- `Space ft`: open terminal in the project root
+- `Space fT`: open terminal in the current working directory
+- `Ctrl-/`: toggle the floating terminal
+
+### Editing Basics
+
+- `v`: start characterwise visual selection
+- `V`: start linewise visual selection
+- `yy`: copy the current line
+- `p`: paste after the cursor
+- `P`: paste before the cursor
+- `dd`: delete the current line
+- `x`: delete the character under cursor
+- `u`: undo in normal mode
+- `U`: redo in normal mode
+- `Ctrl-u` in insert mode: undo the last change without leaving insert mode
+- `>` / `<` in visual mode: indent or outdent while keeping the selection active
+- `Alt-j` / `Alt-k`: move the current line or selected block down or up
+
+### Save And Quit
+
+- `Ctrl-s`: save file
+- `Space qq`: quit Neovim
+- `Esc`: clear search highlight and return to normal mode
 
 ## Verify The Setup
 
