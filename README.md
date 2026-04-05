@@ -38,7 +38,8 @@ Make sure these are in place before replacing your current Neovim setup:
 4. Install Ghostty. This setup is intended to be used in Ghostty.
 5. Install a Nerd Font. This setup is intended to be used with `JetBrainsMono NFM Regular`.
 6. Install [Oh My Posh](https://github.com/JanDeDobbeleer/oh-my-posh).
-7. Back up your existing Neovim config if you already have one:
+7. If you want to use `htmx-lsp`, install Rust so `cargo` is available in your `PATH`: https://www.rust-lang.org/tools/install
+8. Back up your existing Neovim config if you already have one:
 
 ```bash
 mv ~/.config/nvim ~/.config/nvim.bak
