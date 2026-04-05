@@ -48,6 +48,7 @@ return {
       opts.formatters_by_ft.javascriptreact = { "deno_fmt", "prettier", stop_after_first = true }
       opts.formatters_by_ft.typescript = { "deno_fmt", "prettier", stop_after_first = true }
       opts.formatters_by_ft.typescriptreact = { "deno_fmt", "prettier", stop_after_first = true }
+      opts.formatters_by_ft.vue = { "prettier" }
       extend_unique(opts.formatters_by_ft, "java", { "google-java-format" })
       extend_unique(opts.formatters_by_ft, "python", { "ruff_organize_imports", "ruff_fix", "ruff_format" })
       extend_unique(opts.formatters_by_ft, "scala", { "scalafmt" })
@@ -73,6 +74,7 @@ return {
       extend_unique(opts.linters_by_ft, "css", { "stylelint" })
       extend_unique(opts.linters_by_ft, "scss", { "stylelint" })
       extend_unique(opts.linters_by_ft, "less", { "stylelint" })
+      extend_unique(opts.linters_by_ft, "vue", { "stylelint" })
       extend_unique(opts.linters_by_ft, "dotenv", { "dotenv_linter" })
       extend_unique(opts.linters_by_ft, "sh", { "shellcheck" })
       extend_unique(opts.linters_by_ft, "bash", { "shellcheck" })

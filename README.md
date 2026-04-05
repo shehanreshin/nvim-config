@@ -15,7 +15,7 @@ This setup is centered around:
 - LazyVim as the base distro
 - Catppuccin with a custom Ulquiorra Cifer-inspired palette
 - custom dashboard styling and icon colors
-- language support for Angular, Docker, Helm, Java, JSON, Kotlin, Markdown, Scala, Python, Go, SQL, Terraform, TypeScript, Tailwind, YAML, GraphQL, HTML, CSS, XML, shell, and related config files
+- language support for Angular, Docker, Helm, Java, JSON, Kotlin, Markdown, Scala, Python, Go, SQL, Terraform, TypeScript, Vue, Tailwind, YAML, GraphQL, HTML, CSS, XML, shell, and related config files
 
 ## Table of Contents
 
@@ -158,3 +158,11 @@ File icon check:
 ```
 
 The `preview/icons` folder contains representative files for the file types configured in this setup so you can inspect icon glyphs and icon colors in a file explorer.
+
+Vue file check:
+
+```vim
+:edit preview/vue/App.vue
+```
+
+This gives you a standalone Vue single-file component outside the mixed icon-fixture folder, so the Vue LSP can attach under a normal project context.
